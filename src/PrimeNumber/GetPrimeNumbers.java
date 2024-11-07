@@ -15,7 +15,14 @@ public class GetPrimeNumbers {
 
     public void getPrimeNumbers(){
         for (int number : listOfNumbers){
-            if(number % number == 0){
+            boolean isPrime = true;
+            for(int j = 2; j < number; j++){
+                if(number % j == 0){
+                    isPrime = false;
+                    break;
+                }
+            }
+            if(isPrime){
                 System.out.println(number);
             }
         }
