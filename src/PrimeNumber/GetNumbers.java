@@ -6,8 +6,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class GetNumbers {
+    public static ArrayList<Integer> list;
     public static void getNumbers() {
-        ArrayList<Integer> list = new ArrayList<>();
+        list = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             String line;
