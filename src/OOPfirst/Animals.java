@@ -1,11 +1,13 @@
 package OOPfirst;
 
 abstract class Animals {
+    protected static int animalsCount = 0;
     protected String name;
     protected int maxRunDistance;
     protected int maxSwimDistance;
 
     public Animals(String name,int maxRunDistance, int maxSwimDistance) {
+        animalsCount++;
         this.name = name;
         this.maxRunDistance = maxRunDistance;
         this.maxSwimDistance = maxSwimDistance;

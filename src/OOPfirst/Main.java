@@ -18,17 +18,18 @@ public class Main {
         animals.add(new Dog("Gerda", 400, 10));
 
         for (Animals animal : animals){
-            switch (animal){
-                case Dog d -> ++countDogs;
-                case Cat c -> ++countCats;
-                case  Tiger t -> ++countTigers;
-                default -> throw new IllegalStateException("Unexpected value: " + animal);
-            }
+//            switch (animal){
+//                case Dog d -> ++countDogs;
+//                case Cat c -> ++countCats;
+//                case  Tiger t -> ++countTigers;
+//                default -> throw new IllegalStateException("Unexpected value: " + animal);
+//            }
             animal.run(180);
             animal.swim(10);
         }
-        System.out.println("Кол-во собак: " + countDogs);
-        System.out.println("Кол-во котов: " + countCats);
-        System.out.println("Кол-во тигров: " + countTigers);
+        System.out.println("Кол-во животных: " + Animals.animalsCount);
+        System.out.println("Кол-во котов: " + Cat.catsCount);
+        System.out.println("Кол-во собак: " + Dog.dogsCount);
+        System.out.println("Кол-во тигров: " + Tiger.tigersCount);
     }
 }
