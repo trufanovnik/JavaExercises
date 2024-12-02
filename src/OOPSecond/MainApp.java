@@ -20,7 +20,7 @@ public class MainApp {
         participants.add(robot);
 
         Wall wall = new Wall(1.51);
-        Treadmill treadmill = new Treadmill(50);
+        Treadmill treadmill = new Treadmill(1250);
 
         ArrayList<Obstacles> obstacles = new ArrayList<>();
         obstacles.add(wall);
