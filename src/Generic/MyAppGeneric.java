@@ -1,7 +1,6 @@
 package Generic;
 
 import Generic.Fruit.Apple;
-import Generic.Fruit.Fruit;
 import Generic.Fruit.Orange;
 import Generic.Storage.Box;
 
