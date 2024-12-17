@@ -37,6 +37,10 @@ public class Box<T extends Fruit>{
     }
 
     public void moveFruitsToAnotherBox(Box<T> another){
+        if (this.getWeight() == 0) {
+            System.out.println("Коробка пуста");
+            return;
+        }
         if (another.getFreeVolume() >= this.getWeight()){
             another.getFruits().addAll(this.getFruits());
             another.freeVolume -= this.getWeight();

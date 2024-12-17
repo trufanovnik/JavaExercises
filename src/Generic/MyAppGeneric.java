@@ -24,5 +24,7 @@ public class MyAppGeneric {
         System.out.println("Пересыпаем ...........");
         System.out.println("Вес коробки ИЗ: " + appleBox.getWeight());
         System.out.println("Вес коробки В: " + appleBox1.getWeight());
+
+        appleBox.moveFruitsToAnotherBox(appleBox1);
     }
 }
