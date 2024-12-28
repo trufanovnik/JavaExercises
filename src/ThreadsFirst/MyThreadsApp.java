@@ -37,9 +37,9 @@ public class MyThreadsApp {
             }
         });
         Thread thread2 = new Thread(() -> {
-            for (int i = 0; i < HALF-1; i++) {
-                arrayRight[i] = (float) (i * Math.sin(0.2f + i / 3.0f) * Math.cos(0.2f + i / 2.0f) *
-                        Math.cos(0.4f + i / 2.0f) + 2.2f);
+            for (int i = 0, j = HALF; i < HALF-1; i++, j++) {
+                arrayRight[i] = (float) (j * Math.sin(0.2f + j / 3.0f) * Math.cos(0.2f + j / 2.0f) *
+                        Math.cos(0.4f + j / 2.0f) + 2.2f);
             }
         });
         thread1.start();
