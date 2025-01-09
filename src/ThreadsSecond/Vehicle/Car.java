@@ -31,6 +31,7 @@ public class Car implements Runnable{
 
     @Override
     public void run() {
+        //для подготовки и одновременного старта используем барьер
         try {
             System.out.println( this.name + " готовится" );
             Thread.sleep( 500 + ( int )(Math.random() * 800 ));
@@ -39,6 +40,7 @@ public class Car implements Runnable{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //для каждой стадии гонки реализуем метод go, написанный внутри стадии с текущим объектом (участником)
         for ( int i = 0 ; i < race.getStages().size(); i++) {
             race.getStages().get(i).go( this );
         }
