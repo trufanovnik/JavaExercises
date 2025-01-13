@@ -1,8 +1,7 @@
 package StreamAPI;
 
-import java.sql.Array;
+import java.nio.file.attribute.UserPrincipalLookupService;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -38,6 +37,15 @@ public class MainApp {
                 .map(s -> s.getSalary()).reduce(0f, (a,b) -> a+b/employees.length);
         System.out.println("Средняя зарплата сотрудников: " + employeesAverageSalary);
         System.out.println("------------------------");
+
+        //Найти N самых старших сотрудников
+        int N = 3;
+        String oldestEmployees = Stream.of(employees)
+                .sorted(Comparator.comparing(Employee::getAge).reversed())
+                .limit(N)
+                .map(Employee::getName)
+                .collect(Collectors.joining(", "));
+        System.out.println(N + " самых старших сотрудников зовут: " + oldestEmployees);
     }
 }
 
