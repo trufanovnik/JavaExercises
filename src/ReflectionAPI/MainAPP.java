@@ -2,8 +2,14 @@ package ReflectionAPI;
 
 public class MainAPP {
     public static void main(String[] args){
-        Class s = Integer.class;
-        System.out.println(s.getName());
+        getSuperRecursive(ArithmeticException.class);
+    }
 
+    public static void getSuperRecursive(Class first){
+        if(first.getSuperclass() != null){
+            System.out.println(first.getSuperclass().getSimpleName());
+            Class next = first.getSuperclass();
+            getSuperRecursive(next);
+        }
     }
 }
