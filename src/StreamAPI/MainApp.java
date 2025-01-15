@@ -41,7 +41,7 @@ public class MainApp {
         //Найти N самых старших сотрудников
         int N = 3;
         String oldestEmployees = Stream.of(employees)
-                .sorted(Comparator.comparing(Employee::getAge).reversed())
+                .sorted(Comparator.comparing(Employee::getAge).reversed()) // можно сделать .sorted((o1,o2) -> o2.getAge - o1.getAge) - Тогда reverse не нужен.
                 .limit(N)
                 .map(Employee::getName)
                 .collect(Collectors.joining(", "));
