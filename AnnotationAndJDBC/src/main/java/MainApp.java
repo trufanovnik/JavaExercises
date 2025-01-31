@@ -1,7 +1,7 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.lang.reflect.Field;
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainApp {
     private static Connection connection;
@@ -10,7 +10,7 @@ public class MainApp {
     public static void main(String[] args) throws Exception{
         try {
             connect();
-            insertEx();
+            buildTable(Gamers.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
@@ -18,14 +18,44 @@ public class MainApp {
         }
     }
 
-    private static void insertEx() throws SQLException {
-        statement.executeUpdate("INSERT INTO students (name, score) VALUES ('Bob3', 100);");
+    private static void buildTable(Class cl){
+        if (!cl.isAnnotationPresent(Table.class))
+            throw new RuntimeException("Аннотация Table отсутствует у данного класса");
+        Map<Class, String> map = new HashMap<>();
+        map.put(int.class, "INTEGER");
+        map.put(String.class, "TEXT");
+        // строим sql запрос на создание таблицы gamers
+        // CREATE TABLE gamers (id INTEGER, nickname TEXT, game TEXT);
+        StringBuilder stringBuilder = new StringBuilder("CREATE TABLE ");
+        stringBuilder.append(((Table)cl.getAnnotation(Table.class)).title());
+        // "CREATE TABLE gamers"
+        stringBuilder.append(" (");
+        // "CREATE TABLE gamers ("
+        Field[] fields = cl.getDeclaredFields();
+        for (Field o : fields){
+            o.setAccessible(true);
+            if (o.isAnnotationPresent(Column.class)){
+                stringBuilder.append(o.getName())
+                        .append(" ")
+                        .append(map.get(o.getType()))
+                        .append(", ");
+            }
+        }
+        // "CREATE TABLE gamers (id INTEGER, nickname TEXT, game TEXT, "
+        stringBuilder.setLength(stringBuilder.length() - 2);
+        // "CREATE TABLE gamers (id INTEGER, nickname TEXT, game TEXT"
+        stringBuilder.append(");");
+        try {
+            statement.execute(stringBuilder.toString());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void connect() throws SQLException{
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:/D:/dev/Java/Ex/JavaExercises/AnnotationAndJDBC/main.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:AnnotationAndJDBC/main.db");
             statement = connection.createStatement();
         } catch (SQLException | ClassNotFoundException e) {
             throw new SQLException("Unable to connect");
