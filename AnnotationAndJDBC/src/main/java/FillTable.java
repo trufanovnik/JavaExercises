@@ -1,12 +1,13 @@
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 
 public class FillTable extends DBconnection{
     private static int id;
     private static String nickname;
     private static String game;
 
-    private static void getFieldsFromClass() throws NoSuchMethodException {
+    protected static void getFieldsFromClass() throws NoSuchMethodException {
         try {
             Class<?> gamersClass = Gamers.class;
             Object gamer = gamersClass.getConstructor(int.class, String.class, String.class)
@@ -27,12 +28,10 @@ public class FillTable extends DBconnection{
             throw new RuntimeException(e);
         }
     }
-//    private static void fillTableWithFields(){
-//
-//    }
-
-//    public static void main(String[] args) throws NoSuchMethodException {
-//        getFieldsFromClass();
-//        System.out.println(id + " " + nickname + " " + game);
-//    }
+    protected static void fillTableWithFields() throws SQLException {
+        ps.setObject(1, id);
+        ps.setObject(2, nickname);
+        ps.setObject(3, game);
+        ps.executeUpdate();
+    }
 }
